@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form>
+    <div>
+        <div>
+            <h3>Add New Product</h3>
+            <input id="txtProduct" type="text" placeholder="New Product" >
+            <input onclick="add()" type="button" value="Add">
+        </div>
+        <div>
+            <h3>Display All Product</h3>
+            <table border="1">
+                <tr>
+                    <th>Product Name</th>
+                    <th colspan="2">Count:
+                        <a id="countProduct"></a>
+                    </th>
+                </tr>
+                <tbody id="products">
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <input type="text" id="editProduct"  >
+            <input type="button" id="btnSave" value="Save" >
+            <input type="button" id="btnCancel" value="Cancel" >
+        </div>
+    </div>
+</form>
+<script>
+    let count = 0;
+    let products = ['Sam Sung', 'Apple', 'LG', 'Nokia'];
+    let valueProduct = document.getElementById("products");
+    let nameProduct = document.getElementById("txtProduct");
+    let countProduct = document.getElementById("countProduct");
+
+
+    function showProduct() {
+        for (let i = 0; i < products.length; i++) {
+            valueProduct.innerHTML +=
+                '<tr>'
+                + '<td>' + products[i] + '</td>'
+                + '<td><input type="button" onclick="edit(' + i + ')" value="Edit"/></td>'
+                + '<td><input type="button" onclick="del(' + i + ')" value="Delete"/></td>'
+                + '</tr>';
+            count++
+        }
+        countProduct.innerHTML = count;
+    }
+
+    function add() {
+        refersh();
+        products.push(nameProduct.value);
+        showProduct();
+    }
+
+
+    function del(item) {
+        refersh();
+        products.splice(item, item + 1);
+        showProduct();
+    }
+
+
+    function edit(item) {
+        let editProduct = document.getElementById("editProduct");
+        let btnSave = document.getElementById("btnSave");
+        let btnCancel = document.getElementById("btnCancel");
+
+
+        btnSave.onclick = function () {
+            products[item] = editProduct.value;
+            refersh();
+            showProduct();
+
+        };
+    }
+
+    function refersh() {
+        valueProduct.innerHTML = '';
+        count = 0;
+    }
+
+
+
+</script>
+</body>
+</html>
